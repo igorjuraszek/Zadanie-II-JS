@@ -4,10 +4,12 @@ const usersDatabase = [
   {
     username: 'admin',
     password: 'admin123',
+    email: 'admin@admin.com',
   },
   {
     username: 'user',
     password: 'user123',
+    email: 'user@user.com',
   },
 ]
 
