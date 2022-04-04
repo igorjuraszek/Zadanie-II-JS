@@ -16,7 +16,7 @@ Artykuł powinien składać się z
 
 ## To do:
 
-    [ ] Wyświetl kilka pre-definiowanych artykułów
+    [x] Wyświetl kilka pre-definiowanych artykułów
 
     [x] Dodaj formularz do tworzenia nowych postów
 
