@@ -10,7 +10,7 @@ Artykuł powinien składać się z
 
     [x] title
 
-    [ ] body
+    [x] body
 
     [x] likesCount → każdy post na początku ma 0 like’ów.
 
@@ -24,8 +24,8 @@ Artykuł powinien składać się z
 
     [x] Stwórz prosty system głosowania - Dodaj like +5 - Odejmij like -10
 
-    [ ] Zaimportuj artykuły [https://jsonplaceholder.typicode.com/posts?userId=1](https://jsonplaceholder.typicode.com/posts?userId=1) po kliknięciu w button, przy implementacji skorzystaj z FETCH API - Zaimportowane artykuły dodaj na sam koniec listy - Z zaimportowanych artykułów usuń pole `userId` i dodaj `likesCount` - Upewnij się, że pola `id` nie pokrywają się z istniejącymi już
+    [x] Zaimportuj artykuły [https://jsonplaceholder.typicode.com/posts?userId=1](https://jsonplaceholder.typicode.com/posts?userId=1) po kliknięciu w button, przy implementacji skorzystaj z FETCH API - Zaimportowane artykuły dodaj na sam koniec listy - Z zaimportowanych artykułów usuń pole `userId` i dodaj `likesCount` - Upewnij się, że pola `id` nie pokrywają się z istniejącymi już
 
-    [ ] Dodaj fukcjonalność usuwania postów
+    [x] Dodaj fukcjonalność usuwania postów
 
     [x] Wyświetl ilość postów
