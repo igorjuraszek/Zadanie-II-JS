@@ -1,20 +1,9 @@
 const credentialsForm = document.getElementById('login')
 
-const usersDatabase = [
-  {
-    username: 'admin',
-    password: 'admin123',
-    email: 'admin@admin.com',
-  },
-  {
-    username: 'user',
-    password: 'user123',
-    email: 'user@user.com',
-  },
-]
+const usersFromLocalStorage = JSON.parse(window.localStorage.getItem('usersDatabase'))
 
 function isUserExist(username) {
-for (const user of usersDatabase) {
+for (const user of usersFromLocalStorage) {
       if (user.username === username) {
         return true
       }
@@ -23,7 +12,7 @@ for (const user of usersDatabase) {
 }
 
 function isPasswordCorrect(username, password) {
-  if (usersDatabase.find(user => user.username === username).password === password) {
+  if (usersFromLocalStorage.find(user => user.username === username).password === password) {
     return true
   }
   return false
@@ -39,7 +28,10 @@ const checkCredentials = event => {
 //  console.log(formPassword)
   if (isUserExist(formUsername)){
     if (isPasswordCorrect(formUsername, formPassword)){
-      console.log("Dane poprawne")
+      //console.log("Dane poprawne")
+      localStorage.setItem('currentUser', formUsername)
+      window.location.href = 'index.html'
+
     } else {
       console.log("Hasło niepoprawne")
     }

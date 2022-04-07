@@ -1,22 +1,34 @@
-const registerForm = document.getElementById('register')
+const registerForm = document.getElementById("register")
 
-const checkRegisterCredentials = event => {
-	event.preventDefault()
+const checkRegisterCredentials = (event) => {
+  event.preventDefault();
 
-  const formUsername = document.getElementById('username').value
-  const formPassword = document.getElementById('password').value
-  const formRepeatedPassword = document.getElementById('repeat-password').value
-  const formEmail = document.getElementById('password').value
+  const usersFromLocalStorage = JSON.parse(
+    window.localStorage.getItem("usersDatabase")
+  );
 
-  console.log(formUsername)
-  console.log(formPassword)
-  console.log(formRepeatedPassword)
-  console.log(formEmail)
+  const formUsername = document.getElementById("username").value;
+  const formPassword = document.getElementById("password").value;
+  const formRepeatedPassword = document.getElementById("repeat-password").value;
+  const formEmail = document.getElementById("email").value;
 
-  if (formPassword !== formRepeatedPassword){
-    console.log("Hasła nie są takie same")
+  if (formPassword === formRepeatedPassword) {
+    const newUser = {
+      id: usersFromLocalStorage.length,
+      username: formUsername,
+      password: formPassword,
+      email: formEmail,
+    };
+
+    usersFromLocalStorage.push(newUser);
+
+    const newUsersToLocalStorage = JSON.stringify(usersFromLocalStorage);
+    localStorage.setItem("usersDatabase", newUsersToLocalStorage);
+
+    window.location.href = 'index.html'
   }
+};
 
-}
 
-registerForm.addEventListener('submit', checkRegisterCredentials)
+
+registerForm.addEventListener("submit", checkRegisterCredentials);
