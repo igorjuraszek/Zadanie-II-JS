@@ -128,3 +128,6 @@ document.querySelector("#postsContainer").addEventListener("click", (event) => {
     show();
   }
 });
+
+const loggedAs = window.localStorage.getItem("currentUser")
+document.querySelector("#logged-as").textContent = `Zalogowano jako: ${loggedAs}`
