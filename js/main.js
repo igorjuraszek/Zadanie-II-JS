@@ -13,6 +13,7 @@ function logout() {
 const allPosts = [
   {
     id: 1,
+    ownerId: 1,
     title: "Tytuł testowy 1",
     body: "Zawartość testowa 1",
     likesCount: 0,
@@ -20,6 +21,7 @@ const allPosts = [
   },
   {
     id: 2,
+    ownerId: 1,
     title: "Tytuł testowy 2",
     body: "Zawartość testowa 2",
     likesCount: 0,
@@ -27,6 +29,7 @@ const allPosts = [
   },
   {
     id: 3,
+    ownerId: 1,
     title: "Tytuł testowy 3",
     body: "Zawartość testowa 3",
     likesCount: 0,
@@ -41,6 +44,7 @@ async function fetchPosts() {
   arrayOfObjects.forEach((importedPost) => {
     postToImport = {
       id: allPosts.length + 1,
+      ownerId: 1,
       title: importedPost.title,
       body: importedPost.body,
       likesCount: 0,
@@ -60,6 +64,7 @@ const addPost = (event) => {
   const inputBody = document.getElementById("input-body");
 
   const post = {
+    ownerId: loggedAs.id,
     id: allPosts.length + 1,
     title: inputTitle.value,
     body: inputBody.value,
@@ -75,6 +80,34 @@ const addPost = (event) => {
 
 form.addEventListener("submit", addPost);
 
+const createPost = (post, canUserLikePost) => {
+  if (canUserLikePost) {
+  return `
+    <div id=${post.id}>
+      <p>${post.ownerId}.</p>
+      <p>${post.title}.</p>
+      <p>${post.body}.</p>
+      <p>Liczba lajków:${post.likesCount}</p>
+      <p>
+        <button id="like-${post.id} "> +5 </button>
+        <button id="dislike-${post.id}"> -10 </button>
+      </p>
+    </div>`
+  } else {
+    return `
+    <div id=${post.id}>
+      <p>${post.ownerId}.</p>
+      <p>${post.title}.</p>
+      <p>${post.body}.</p>
+      <p>Liczba lajków:${post.likesCount}</p>
+      <p>
+        <button id="delete-${post.id}"> delete </button>
+      </p>
+    </div>`
+  }
+
+}
+
 function show() {
   const html = allPosts
     .filter(function (post) {
@@ -82,23 +115,13 @@ function show() {
     })
     .reverse()
     .map(
-      (post) =>
-        `
-		      <div id=${post.id}>
-		        <p>${post.title}.</p>
-						<p>${post.body}.</p>
-		        <p>Liczba lajków:${post.likesCount}</p>
-		        <p>
-		          <button id="like-${post.id} "> +5 </button>
-		          <button id="dislike-${post.id}"> -10 </button>
-							<button id="delete-${post.id}"> delete </button>
-		        </p>
+      (post) => {
+        const canUserLikePost = loggedAs.id !== post.ownerId
+        
+        return createPost(post, canUserLikePost)
 
+      }).join("");
 
-
-		      </div>`
-    )
-    .join("");
 
   document.querySelector("#postsContainer").innerHTML = html;
   const postCount = allPosts.filter(function (post) {
@@ -130,6 +153,7 @@ document.querySelector("#postsContainer").addEventListener("click", (event) => {
 });
 
 const userFromLocalStorage = window.localStorage.getItem("currentUser")
-const loggedAs = JSON.parse(userFromLocalStorage).username
+const loggedAs = JSON.parse(userFromLocalStorage)
+const displayedUsername = loggedAs.username
 
-document.querySelector("#logged-as").textContent = `Zalogowano jako: ${loggedAs}`
+document.querySelector("#logged-as").textContent = `Zalogowano jako: ${displayedUsername}`

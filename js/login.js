@@ -36,7 +36,6 @@ const isCredentialsCorrect = user.username === formUsername && user.password ===
 
 })
 
-debugger
 
 if(currentUser){
   localStorage.setItem('currentUser', JSON.stringify(currentUser))
