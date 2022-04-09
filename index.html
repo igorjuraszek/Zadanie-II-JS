@@ -9,14 +9,15 @@
 </head>
 
 <body>
-    <p id="logged-as"></p>
-    <button onclick="logout()">wyloguj</button>
-  <div>
-    <form id="data">
-      <input id="input-title" type="text"></input>
-      <br><input id="input-body" type="text"></input>
-      <br><button type="submit">DODAJ</button>
-    </form>
+  <p id="logged-as"></p>
+  <button onclick="logout()">wyloguj</button>
+  <form id="data">
+    <input id="input-title" type="text"></input>
+    <br><input id="input-body" type="text"></input>
+    <br><button type="submit">DODAJ</button>
+  </form>
+  <input id="search-post" type="text" placeholder="wyszukaj po tytule"></input>
+  <input id="my-post-checkbox" type="checkbox"> </input> <label for="my-post-checkbox">Tylko moje posty</label>
   </div>
 
   <p id="numberPost">Liczba postów: 0</p>

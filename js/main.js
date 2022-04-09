@@ -1,3 +1,5 @@
+let searchInput = ''
+let showMyPosts = false
 const form = document.getElementById('data')
 window.onload = function () {
 	if (!window.localStorage.getItem('currentUser')) {
@@ -78,6 +80,21 @@ const addPost = event => {
 	show()
 }
 
+const searchPost = event => {
+	searchInput = event.target.value
+
+	console.log(searchInput)
+	show()
+}
+
+const changeShowMyPosts = event => {
+	showMyPosts = event.target.checked
+	show()
+}
+
+document.querySelector('#search-post').addEventListener('keyup', searchPost)
+document.querySelector('#my-post-checkbox').addEventListener('change', changeShowMyPosts)
+
 form.addEventListener('submit', addPost)
 
 const showButtons = (post, canUserLikePost) => {
@@ -108,7 +125,15 @@ ${showButtons(post, canUserLikePost)}
 }
 
 function show() {
-	const html = allPosts
+	const postToShow = allPosts
+		.filter(post => {
+			const isThisMyPost = loggedAs.id === post.ownerId
+			if (showMyPosts) {
+				return isThisMyPost && post.title.includes(searchInput)
+			}
+
+			return post.title.includes(searchInput)
+		})
 		.filter(function (post) {
 			return post.isDeleted == false
 		})
@@ -118,13 +143,13 @@ function show() {
 
 			return createPost(post, canUserLikePost)
 		})
-		.join('')
+	const html = postToShow.join('')
 
 	document.querySelector('#postsContainer').innerHTML = html
 	const postCount = allPosts.filter(function (post) {
 		return post.isDeleted == false
 	}).length
-	document.querySelector('#numberPost').textContent = `Liczba postów: ${postCount}`
+	document.querySelector('#numberPost').textContent = `Liczba postów: ${postToShow.length}/${postCount}`
 }
 
 document.querySelector('#postsContainer').addEventListener('click', event => {
