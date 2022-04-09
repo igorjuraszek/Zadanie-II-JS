@@ -103,7 +103,7 @@ const createPost = (post, canUserLikePost) => {
       <p>
          
 ${showButtons(post, canUserLikePost)}
-      </p>
+    </p>
     </div>`
 }
 
