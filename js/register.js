@@ -18,7 +18,7 @@ const checkRegisterCredentials = (event) => {
       username: formUsername,
       password: formPassword,
       email: formEmail,
-    };
+    }
     
     if (!usersFromLocalStorage.find(user => user.username === formUsername)){
       usersFromLocalStorage.push(newUser);

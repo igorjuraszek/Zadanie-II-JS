@@ -12,6 +12,7 @@ for (const user of usersFromLocalStorage) {
 }
 
 function isPasswordCorrect(username, password) {
+
   if (usersFromLocalStorage.find(user => user.username === username).password === password) {
     return true
   }
@@ -26,19 +27,39 @@ const checkCredentials = event => {
   const formPassword = document.getElementById('password').value
 //  console.log(formUsername)
 //  console.log(formPassword)
-  if (isUserExist(formUsername)){
-    if (isPasswordCorrect(formUsername, formPassword)){
-      //console.log("Dane poprawne")
-      localStorage.setItem('currentUser', formUsername)
-      window.location.href = 'index.html'
 
-    } else {
-      console.log("Hasło niepoprawne")
-    }
-  } else {
-    console.log("Podany użytkownik nie istnieje")
-  }
+const parsedUserDatabase = JSON.parse(window.localStorage.getItem('usersDatabase'))
+const currentUser = parsedUserDatabase.find((user) => {
+const isCredentialsCorrect = user.username === formUsername && user.password === formPassword
 
+  return isCredentialsCorrect
+
+})
+
+debugger
+
+if(currentUser){
+  localStorage.setItem('currentUser', JSON.stringify(currentUser))
+  window.location.href = 'index.html'
+}  
+
+
+
+// if (isUserExist(formUsername)){
+//     if (isPasswordCorrect(formUsername, formPassword)){
+//       //console.log("Dane poprawne")
+//       localStorage.setItem('currentUser', formUsername)
+//       window.location.href = 'index.html'
+
+//     } else {
+//       console.log("Hasło niepoprawne")
+//     }
+//   } else {
+//     console.log("Podany użytkownik nie istnieje")
+//   }
+
+  
 }
+
 
 credentialsForm.addEventListener('submit', checkCredentials)

@@ -129,5 +129,7 @@ document.querySelector("#postsContainer").addEventListener("click", (event) => {
   }
 });
 
-const loggedAs = window.localStorage.getItem("currentUser")
+const userFromLocalStorage = window.localStorage.getItem("currentUser")
+const loggedAs = JSON.parse(userFromLocalStorage).username
+
 document.querySelector("#logged-as").textContent = `Zalogowano jako: ${loggedAs}`
