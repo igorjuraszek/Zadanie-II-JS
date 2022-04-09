@@ -1,5 +1,7 @@
 let searchInput = ''
 let showMyPosts = false
+let selectValue = '#All'
+const parsedUserDatabase = JSON.parse(window.localStorage.getItem('usersDatabase'))
 const form = document.getElementById('data')
 window.onload = function () {
 	if (!window.localStorage.getItem('currentUser')) {
@@ -11,6 +13,33 @@ function logout() {
 	window.localStorage.removeItem('currentUser')
 	window.location.href = 'start.html'
 }
+
+const idToUsername = id => {
+  const username = parsedUserDatabase.find((user) => {
+  return user.id === id
+    }).username
+
+  return username
+}
+
+const addSelectOptions = user => {
+  return `<option value="${user.username}">${user.username}</option>`
+}
+
+function updateSelectOptions() {
+  allUsersOption = `<option value="#All">Wszyscy</option>`
+  selectOptions = parsedUserDatabase.map(addSelectOptions).join('')
+  document.querySelector('#choose-user').innerHTML = allUsersOption + selectOptions
+}
+updateSelectOptions()
+
+function updateSelectValue(event) {
+  selectValue = event.target.value
+  show()
+}
+
+document.querySelector('#choose-user').addEventListener('change', updateSelectValue)
+
 
 const allPosts = [
 	{
@@ -113,7 +142,7 @@ const showButtons = (post, canUserLikePost) => {
 const createPost = (post, canUserLikePost) => {
 	return `
     <div id=${post.id}>
-      <p>${post.ownerId}.</p>
+      <p>Autor: ${idToUsername(post.ownerId)}.</p>
       <p>${post.title}.</p>
       <p>${post.body}.</p>
       <p>Liczba lajków:${post.likesCount}</p>
@@ -126,9 +155,16 @@ ${showButtons(post, canUserLikePost)}
 
 function show() {
 	const postToShow = allPosts
+  .filter(post => {
+    if (selectValue === "#All")
+      return true
+    if (idToUsername(post.ownerId) === selectValue) {
+      return true
+    }
+  })
 		.filter(post => {
 			const isThisMyPost = loggedAs.id === post.ownerId
-			if (showMyPosts) {
+			if (showMyPosts && selectValue === "#All") {
 				return isThisMyPost && post.title.includes(searchInput)
 			}
 
@@ -175,5 +211,6 @@ document.querySelector('#postsContainer').addEventListener('click', event => {
 const userFromLocalStorage = window.localStorage.getItem('currentUser')
 const loggedAs = JSON.parse(userFromLocalStorage)
 const displayedUsername = loggedAs.username
+
 
 document.querySelector('#logged-as').textContent = `Zalogowano jako: ${displayedUsername}`
