@@ -100,12 +100,12 @@ form.addEventListener('submit', addPost)
 const showButtons = (post, canUserLikePost) => {
 	if (canUserLikePost) {
 		return `
-      <button id="like-${post.id}"> +5 </button>
-      <button id="dislike-${post.id}"> -10 </button>
+      <button id="like-${post.id}" class="btn btn-success">  +5 </button>
+      <button id="dislike-${post.id}" class="btn btn-danger"> -10 </button>
     `
 	} else {
 		return `
-     <button id="delete-${post.id}"> delete </button>
+     <button id="delete-${post.id}" class="btn btn-dark"> delete </button>
      `
 	}
 }
@@ -116,7 +116,7 @@ const createPost = (post, canUserLikePost) => {
       <p>${post.ownerId}.</p>
       <p>${post.title}.</p>
       <p>${post.body}.</p>
-      <p>Liczba lajków:${post.likesCount}</p>
+      <p>Liczba lajków: ${post.likesCount}</p>
       <p>
          
 ${showButtons(post, canUserLikePost)}
