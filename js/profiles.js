@@ -58,7 +58,7 @@ function showUserDetails(event) {
   function showPost(post) {
     return `
     <p>${post.title}</p>
-    <p>${post.bodu}</p>
+    <p>${post.body}</p>
     <p>Liked by: ${post.likedByUserIds.length} users, Dislike by: ${post.dislikedByUserIds.length} users</p>
     `;
   }
