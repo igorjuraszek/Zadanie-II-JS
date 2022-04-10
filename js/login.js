@@ -1,64 +1,63 @@
-const credentialsForm = document.getElementById('login')
+const credentialsForm = document.getElementById("login");
 
-const usersFromLocalStorage = JSON.parse(window.localStorage.getItem('usersDatabase'))
+const usersFromLocalStorage = JSON.parse(
+  window.localStorage.getItem("usersDatabase")
+);
 
 function isUserExist(username) {
-for (const user of usersFromLocalStorage) {
-      if (user.username === username) {
-        return true
-      }
+  for (const user of usersFromLocalStorage) {
+    if (user.username === username) {
+      return true;
+    }
   }
-  return false
+  return false;
 }
 
 function isPasswordCorrect(username, password) {
-
-  if (usersFromLocalStorage.find(user => user.username === username).password === password) {
-    return true
+  if (
+    usersFromLocalStorage.find((user) => user.username === username)
+      .password === password
+  ) {
+    return true;
   }
-  return false
+  return false;
 }
 
+const checkCredentials = (event) => {
+  event.preventDefault();
 
-const checkCredentials = event => {
-	event.preventDefault()
+  const formUsername = document.getElementById("username").value;
+  const formPassword = document.getElementById("password").value;
+  //  console.log(formUsername)
+  //  console.log(formPassword)
 
-  const formUsername = document.getElementById('username').value
-  const formPassword = document.getElementById('password').value
-//  console.log(formUsername)
-//  console.log(formPassword)
+  const parsedUserDatabase = JSON.parse(
+    window.localStorage.getItem("usersDatabase")
+  );
+  const currentUser = parsedUserDatabase.find((user) => {
+    const isCredentialsCorrect =
+      user.username === formUsername && user.password === formPassword;
 
-const parsedUserDatabase = JSON.parse(window.localStorage.getItem('usersDatabase'))
-const currentUser = parsedUserDatabase.find((user) => {
-const isCredentialsCorrect = user.username === formUsername && user.password === formPassword
+    return isCredentialsCorrect;
+  });
 
-  return isCredentialsCorrect
+  if (currentUser) {
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    window.location.href = "index.html";
+  }
 
-})
+  // if (isUserExist(formUsername)){
+  //     if (isPasswordCorrect(formUsername, formPassword)){
+  //       //console.log("Dane poprawne")
+  //       localStorage.setItem('currentUser', formUsername)
+  //       window.location.href = 'index.html'
 
+  //     } else {
+  //       console.log("Hasło niepoprawne")
+  //     }
+  //   } else {
+  //     console.log("Podany użytkownik nie istnieje")
+  //   }
+};
 
-if(currentUser){
-  localStorage.setItem('currentUser', JSON.stringify(currentUser))
-  window.location.href = 'index.html'
-}  
-
-
-
-// if (isUserExist(formUsername)){
-//     if (isPasswordCorrect(formUsername, formPassword)){
-//       //console.log("Dane poprawne")
-//       localStorage.setItem('currentUser', formUsername)
-//       window.location.href = 'index.html'
-
-//     } else {
-//       console.log("Hasło niepoprawne")
-//     }
-//   } else {
-//     console.log("Podany użytkownik nie istnieje")
-//   }
-
-  
-}
-
-
-credentialsForm.addEventListener('submit', checkCredentials)
+credentialsForm.addEventListener("submit", checkCredentials);
