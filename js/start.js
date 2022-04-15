@@ -62,12 +62,16 @@ const usersDatabase = [
     username: "admin",
     password: "admin123",
     email: "admin@admin.com",
+    isDeleted: false,
+    isAdmin: true,
   },
   {
     id: 2,
     username: "user",
     password: "user123",
     email: "user@user.com",
+    isDeleted: false,
+    isAdmin: false,
   },
 ];
 
