@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.search-usernames {
+  flex: 20;
+}
+
+.user-details {
+  flex: 80;
+}
+
+ul {
+  list-style-type: none;
+}

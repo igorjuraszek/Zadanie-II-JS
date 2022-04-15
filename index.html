@@ -9,8 +9,9 @@
 </head>
 
 <body>
-  <p id="logged-as"></p>
   <button onclick="logout()">wyloguj</button>
+  <p><a href="profiles.html">Profile użytkowników</a></p>
+  <p id="logged-as"></p>
   <form id="data">
     <input id="input-title" type="text"></input>
     <br><input id="input-body" type="text"></input>
@@ -18,7 +19,11 @@
   </form>
   <input id="search-post" type="text" placeholder="wyszukaj po tytule"></input>
   <input id="my-post-checkbox" type="checkbox"> </input> <label for="my-post-checkbox">Tylko moje posty</label>
-  </div>
+  <br>
+<label for="choose-user">Posty uzytkownika:</label>
+<select name="choice" id="choose-user">
+    <option value="">Wszyscy</option>
+</select>
 
   <p id="numberPost">Liczba postów: 0</p>
 
