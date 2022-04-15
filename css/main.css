@@ -221,7 +221,7 @@ p {
 }
 
 #postsContainer div {
-  width: 350px;
+  width: 300px;
   min-height: 150px;
 }
 
@@ -233,14 +233,14 @@ p {
 .header .input {
   margin-bottom: 20px;
   height: 30px;
-  width: 350px;
+  width: 300px;
   padding: 1px;
   font-size: 22px;
 }
 
 .header .input-body {
   margin-bottom: 20px;
-  width: 350px;
+  width: 300px;
   padding: 1px;
   font-size: 22px;
 }
