@@ -39,6 +39,12 @@ const allPosts = [
 	},
 ]
 
+const findUserById = id => {
+	const usersFromLocalStorage = JSON.parse(window.localStorage.getItem('usersDatabase'))
+
+	return usersFromLocalStorage.find(user => user.id === id)
+}
+
 async function fetchPosts() {
 	const url = 'https://jsonplaceholder.typicode.com/posts?userId=1'
 	const response = await fetch(url)
@@ -100,12 +106,12 @@ form.addEventListener('submit', addPost)
 const showButtons = (post, canUserLikePost) => {
 	if (canUserLikePost) {
 		return `
-      <button id="like-${post.id}"> +5 </button>
-      <button id="dislike-${post.id}"> -10 </button>
+      <button id="like-${post.id}" class="btn btn-success">  +5 </button>
+      <button id="dislike-${post.id}" class="btn btn-danger"> -10 </button>
     `
 	} else {
 		return `
-     <button id="delete-${post.id}"> delete </button>
+     <button id="delete-${post.id}" class="btn btn-dark"> delete </button>
      `
 	}
 }
@@ -113,10 +119,10 @@ const showButtons = (post, canUserLikePost) => {
 const createPost = (post, canUserLikePost) => {
 	return `
     <div id=${post.id}>
-      <p>${post.ownerId}.</p>
+			 <p>${findUserById(post.ownerId).username}</p>
       <p>${post.title}.</p>
       <p>${post.body}.</p>
-      <p>Liczba lajków:${post.likesCount}</p>
+      <p>Liczba lajków: ${post.likesCount}</p>
       <p>
          
 ${showButtons(post, canUserLikePost)}
